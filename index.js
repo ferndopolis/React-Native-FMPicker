@@ -7,10 +7,11 @@ var {
     Text,
     View,
     TouchableOpacity,
+    TouchableWithoutFeedback,
     Modal,
     PickerIOS,
     PickerItemIOS
-} = React;
+    } = React;
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
 
@@ -19,12 +20,12 @@ var Component = React.createClass({
         this.setState({modalVisible: true});
     },
     getInitialState: function(){
-        
+
         var selectedOption;
         if (this.props.options.indexOf(this.props.selectedOption) > -1) {
             selectedOption = this.props.selectedOption;
         }
-        
+
         return {
             options: this.props.options,
             labels: this.props.labels || this.props.options,
@@ -33,6 +34,9 @@ var Component = React.createClass({
             selectedOption: selectedOption || this.props.options[0]
         };
     },
+    hide: function() {
+        this.setState({modalVisible: false});
+    },
     render: function() {
         return (
             <Modal
@@ -40,11 +44,10 @@ var Component = React.createClass({
                 transparent={true}
                 visible={this.state.modalVisible}>
                 <View style={styles.basicContainer}>
+                    <TouchableOpacity activeOpacity={1} style={styles.tapToClose} onPress={this.hide}></TouchableOpacity>
                     <View style={styles.modalContainer}>
                         <View style={styles.buttonView}>
-                            <TouchableOpacity onPress={() => {
-                                    this.setState({modalVisible: false});
-                                }}>
+                            <TouchableOpacity onPress={this.hide}>
                                 <Text style={{color:this.state.color}}>Cancel</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => {
@@ -61,14 +64,14 @@ var Component = React.createClass({
                                 style={styles.bottomPicker}
                                 selectedValue={this.state.selectedOption}
                                 onValueChange={(option) => this.setState({selectedOption: option})}
-                                >
+                            >
                                 {this.state.options.map((option, i) => {
                                     var label = this.state.labels[i] || option;
                                     return (
                                         <PickerItemIOS
                                             value={option}
                                             label={label}
-                                            />
+                                        />
                                     )
                                 })}
                             </PickerIOS>
@@ -110,6 +113,10 @@ var styles = StyleSheet.create({
         width:SCREEN_WIDTH
     },
     mainBox: {
+    },
+    tapToClose: {
+        flex: 1,
+        alignSelf: 'stretch'
     }
 });
 
