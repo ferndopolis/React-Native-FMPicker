@@ -9,8 +9,7 @@ var {
     TouchableOpacity,
     TouchableWithoutFeedback,
     Modal,
-    PickerIOS,
-    PickerItemIOS
+    PickerIOS
     } = React;
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
@@ -68,9 +67,10 @@ var Component = React.createClass({
                                 {this.state.options.map((option, i) => {
                                     var label = this.state.labels[i] || option;
                                     return (
-                                        <PickerItemIOS
+                                        <PickerIOS.Item
                                             value={option}
                                             label={label}
+                                            key={option}
                                         />
                                     )
                                 })}
@@ -116,7 +116,8 @@ var styles = StyleSheet.create({
     },
     tapToClose: {
         flex: 1,
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        backgroundColor: 'transparent'
     }
 });
 
