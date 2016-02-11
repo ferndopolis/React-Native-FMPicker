@@ -9,10 +9,11 @@ var {
     TouchableOpacity,
     TouchableWithoutFeedback,
     Modal,
-    PickerIOS
-    } = React;
+    PickerIOS,
+    Dimensions,
+} = React;
 
-var SCREEN_WIDTH = require('Dimensions').get('window').width;
+var SCREEN_WIDTH = Dimensions.get('window').width;
 
 var Component = React.createClass({
     show: function(){
