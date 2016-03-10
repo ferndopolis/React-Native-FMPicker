@@ -10,8 +10,10 @@ var {
     TouchableWithoutFeedback,
     Modal,
     PickerIOS,
-    Dimensions,
+    Dimensions
 } = React;
+
+var PickerItemIOS = PickerIOS.Item;
 
 var SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -20,18 +22,12 @@ var Component = React.createClass({
         this.setState({modalVisible: true});
     },
     getInitialState: function(){
-
-        var selectedOption;
-        if (this.props.options.indexOf(this.props.selectedOption) > -1) {
-            selectedOption = this.props.selectedOption;
-        }
-
         return {
             options: this.props.options,
             labels: this.props.labels || this.props.options,
             color: this.props.color || '#007AFF',
             modalVisible: false,
-            selectedOption: selectedOption || this.props.options[0]
+            selectedOption: this.props.options[0]
         };
     },
     hide: function() {
@@ -68,7 +64,8 @@ var Component = React.createClass({
                                 {this.state.options.map((option, i) => {
                                     var label = this.state.labels[i] || option;
                                     return (
-                                        <PickerIOS.Item
+                                        <PickerItemIOS
+                                            key={option}
                                             value={option}
                                             label={label}
                                             key={option}
@@ -100,7 +97,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding:0,
-        backgroundColor: 'white'
+        backgroundColor: '#F5FCFF',
     },
     buttonView:{
         width:SCREEN_WIDTH,
@@ -111,7 +108,7 @@ var styles = StyleSheet.create({
         flexDirection:'row',
     },
     bottomPicker : {
-        width:SCREEN_WIDTH
+        width:SCREEN_WIDTH,
     },
     mainBox: {
     },
