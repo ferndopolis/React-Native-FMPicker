@@ -37,7 +37,7 @@ var Component = React.createClass({
     render: function() {
         return (
             <Modal
-                animated={true}
+                animationType="none"
                 transparent={true}
                 visible={this.state.modalVisible}>
                 <View style={styles.basicContainer}>
